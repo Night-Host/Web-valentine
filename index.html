@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine? 💌</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3, #ffb199);
+    background-size: 400% 400%;
+    animation: gradientMove 12s ease infinite;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    font-family:'Poppins', sans-serif;
+    text-align:center;
+    color:white;
+}
+
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.container{
+    position:relative;
+    z-index:5;
+}
+
+h1{
+    font-family:'Great Vibes', cursive;
+    font-size:4rem;
+    margin-bottom:40px;
+    animation: floatText 3s ease-in-out infinite;
+}
+
+@keyframes floatText{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+}
+
+button{
+    padding:15px 40px;
+    font-size:20px;
+    border:none;
+    border-radius:50px;
+    margin:10px;
+    cursor:pointer;
+    transition:0.3s ease;
+    font-weight:600;
+}
+
+#yesBtn{
+    background:white;
+    color:#ff4f81;
+}
+
+#yesBtn:hover{
+    transform:scale(1.1);
+}
+
+#noBtn{
+    background:#ff4f81;
+    color:white;
+    position:absolute;
+}
+
+.angry{
+    position:absolute;
+    top:-60px;
+    left:50%;
+    transform:translateX(-50%);
+    font-family:'Great Vibes', cursive;
+    font-size:28px;
+    animation: fadeLove 1.5s forwards;
+}
+
+@keyframes fadeLove{
+    0%{opacity:0; transform:translateX(-50%) translateY(10px);}
+    40%{opacity:1;}
+    100%{opacity:0; transform:translateX(-50%) translateY(-20px);}
+}
+
+.lovePage{
+    display:none;
+    position:absolute;
+    inset:0;
+    background: linear-gradient(135deg, #ff7eb3, #ff758c);
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    font-family:'Great Vibes', cursive;
+    font-size:4rem;
+}
+
+/* Floating hearts */
+.heart{
+    position:absolute;
+    font-size:20px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp{
+    from{
+        transform:translateY(100vh) scale(0.8);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-10vh) scale(1.5);
+        opacity:0;
+    }
+}
+
+/* Pulse hearts background */
+.bg-heart{
+    position:absolute;
+    font-size:80px;
+    opacity:0.08;
+    animation: pulse 4s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.2);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="mainPage">
+    <h1>Will You Be My Valentine? 💖</h1>
+    <div style="position:relative;">
+        <button id="yesBtn">Yes 💌</button>
+        <button id="noBtn">No 💔</button>
+    </div>
+</div>
+
+<div class="lovePage" id="lovePage">
+    I Love You So Much 💞
+</div>
+
+<script>
+let yesSize = 20;
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const body = document.body;
+
+const angryWords = [
+    "Yah kok nolak sih, hmph!",
+    "Jangan gitu dong, hmph!",
+    "Aku sedih tau, hmph!",
+    "Ih jahat banget, hmph!",
+    "Serius nggak mau? hmph!",
+    "Huft kesel deh, hmph!"
+];
+
+noBtn.addEventListener("click", function(){
+
+    yesSize += 10;
+    yesBtn.style.fontSize = yesSize + "px";
+    yesBtn.style.padding = (yesSize/2) + "px " + yesSize + "px";
+
+    noBtn.style.top = Math.random()*200 - 100 + "px";
+    noBtn.style.left = Math.random()*200 - 100 + "px";
+
+    const text = document.createElement("div");
+    text.classList.add("angry");
+    text.innerText = angryWords[Math.floor(Math.random()*angryWords.length)];
+    body.appendChild(text);
+
+    setTimeout(()=>text.remove(),1500);
+});
+
+yesBtn.addEventListener("click", function(){
+    document.getElementById("mainPage").style.display="none";
+    const lovePage = document.getElementById("lovePage");
+    lovePage.style.display="flex";
+
+    setInterval(()=>{
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML="💖";
+        heart.style.left = Math.random()*100+"vw";
+        heart.style.fontSize = Math.random()*30+15+"px";
+        body.appendChild(heart);
+        setTimeout(()=>heart.remove(),6000);
+    },300);
+});
+
+/* Background giant hearts */
+for(let i=0;i<5;i++){
+    const bg = document.createElement("div");
+    bg.classList.add("bg-heart");
+    bg.innerHTML="❤";
+    bg.style.top = Math.random()*100+"vh";
+    bg.style.left = Math.random()*100+"vw";
+    body.appendChild(bg);
+}
+</script>
+
+</body>
+</html>
