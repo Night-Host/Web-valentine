@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Will You Be My Valentine? 💌</title>
+<title>Will You Be My Valentine? 💖</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 *{
@@ -16,9 +16,9 @@
 
 body{
     height:100vh;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3, #ffb199);
-    background-size: 400% 400%;
-    animation: gradientMove 12s ease infinite;
+    background: linear-gradient(135deg, #ff6f91, #ff9671, #ffc75f);
+    background-size: 300% 300%;
+    animation: gradientMove 10s ease infinite;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -26,6 +26,7 @@ body{
     font-family:'Poppins', sans-serif;
     text-align:center;
     color:white;
+    position:relative;
 }
 
 @keyframes gradientMove{
@@ -43,12 +44,6 @@ h1{
     font-family:'Great Vibes', cursive;
     font-size:4rem;
     margin-bottom:40px;
-    animation: floatText 3s ease-in-out infinite;
-}
-
-@keyframes floatText{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
 }
 
 button{
@@ -67,73 +62,68 @@ button{
     color:#ff4f81;
 }
 
-#yesBtn:hover{
-    transform:scale(1.1);
-}
-
 #noBtn{
     background:#ff4f81;
     color:white;
     position:absolute;
 }
 
+/* ==== ANGRY TEXT ==== */
 .angry{
     position:absolute;
-    top:-60px;
+    top:-90px;
     left:50%;
     transform:translateX(-50%);
-    font-family:'Great Vibes', cursive;
-    font-size:28px;
-    animation: fadeLove 1.5s forwards;
+    font-size:48px;
+    font-weight:800;
+    color:#ff0000;
+    text-shadow:0 0 15px red;
+    animation: shake 0.4s infinite, fadeOut 1.5s forwards;
 }
 
-@keyframes fadeLove{
-    0%{opacity:0; transform:translateX(-50%) translateY(10px);}
-    40%{opacity:1;}
-    100%{opacity:0; transform:translateX(-50%) translateY(-20px);}
+@keyframes shake{
+    0%{transform:translateX(-50%) translateX(0);}
+    25%{transform:translateX(-50%) translateX(-8px);}
+    50%{transform:translateX(-50%) translateX(8px);}
+    75%{transform:translateX(-50%) translateX(-8px);}
+    100%{transform:translateX(-50%) translateX(0);}
 }
 
+@keyframes fadeOut{
+    0%{opacity:0;}
+    20%{opacity:1;}
+    100%{opacity:0;}
+}
+
+/* ==== EMOJI TERBANG ==== */
+.angryEmoji{
+    position:absolute;
+    font-size:30px;
+    animation: explode 1s linear forwards;
+}
+
+@keyframes explode{
+    from{
+        transform:translate(0,0) scale(1);
+        opacity:1;
+    }
+    to{
+        transform:translate(var(--x), var(--y)) scale(1.8);
+        opacity:0;
+    }
+}
+
+/* Love page */
 .lovePage{
     display:none;
     position:absolute;
     inset:0;
-    background: linear-gradient(135deg, #ff7eb3, #ff758c);
+    background: linear-gradient(135deg, #ff7eb3, #ff6f91);
     justify-content:center;
     align-items:center;
     flex-direction:column;
     font-family:'Great Vibes', cursive;
     font-size:4rem;
-}
-
-/* Floating hearts */
-.heart{
-    position:absolute;
-    font-size:20px;
-    animation: floatUp 6s linear infinite;
-}
-
-@keyframes floatUp{
-    from{
-        transform:translateY(100vh) scale(0.8);
-        opacity:1;
-    }
-    to{
-        transform:translateY(-10vh) scale(1.5);
-        opacity:0;
-    }
-}
-
-/* Pulse hearts background */
-.bg-heart{
-    position:absolute;
-    font-size:80px;
-    opacity:0.08;
-    animation: pulse 4s infinite;
-}
-
-@keyframes pulse{
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.2);}
 }
 </style>
 </head>
@@ -142,7 +132,7 @@ button{
 
 <div class="container" id="mainPage">
     <h1>Will You Be My Valentine? 💖</h1>
-    <h1>By hann.... gabut jir</h1>
+    <h1>by hann gabutt bangett</h1>
     <div style="position:relative;">
         <button id="yesBtn">Yes 💌</button>
         <button id="noBtn">No 💔</button>
@@ -157,59 +147,58 @@ button{
 let yesSize = 20;
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
-const body = document.body;
+const mainPage = document.getElementById("mainPage");
 
 const angryWords = [
-    "Yah kok nolak sih, hmph!",
-    "Jangan gitu dong, hmph!",
-    "Aku sedih tau, hmph!",
-    "Ih jahat banget, hmph!",
-    "Serius nggak mau? hmph!",
-    "Huft kesel deh, hmph!"
+    "JAHAT BANGET hmp😡",
+    "KOK NOLAK SIH hmp😤",
+    "TEGA BANGET hmp😡",
+    "KESEL AKU hmp😤🔥"
 ];
 
 noBtn.addEventListener("click", function(){
 
-    yesSize += 10;
+    // YES membesar
+    yesSize += 12;
     yesBtn.style.fontSize = yesSize + "px";
     yesBtn.style.padding = (yesSize/2) + "px " + yesSize + "px";
 
-    noBtn.style.top = Math.random()*200 - 100 + "px";
-    noBtn.style.left = Math.random()*200 - 100 + "px";
+    // NO pindah
+    noBtn.style.top = Math.random()*150 + "px";
+    noBtn.style.left = Math.random()*150 + "px";
 
+    // Teks marah
     const text = document.createElement("div");
     text.classList.add("angry");
     text.innerText = angryWords[Math.floor(Math.random()*angryWords.length)];
-    body.appendChild(text);
-
+    mainPage.appendChild(text);
     setTimeout(()=>text.remove(),1500);
+
+    // Ledakan emoji 😡
+    for(let i=0;i<15;i++){
+        const emoji = document.createElement("div");
+        emoji.classList.add("angryEmoji");
+        emoji.innerHTML="hmp😤";
+
+        emoji.style.left = window.innerWidth/2 + "px";
+        emoji.style.top = window.innerHeight/2 + "px";
+
+        let x = (Math.random()-0.5)*400 + "px";
+        let y = (Math.random()-0.5)*400 + "px";
+
+        emoji.style.setProperty('--x', x);
+        emoji.style.setProperty('--y', y);
+
+        document.body.appendChild(emoji);
+
+        setTimeout(()=>emoji.remove(),1000);
+    }
 });
 
 yesBtn.addEventListener("click", function(){
-    document.getElementById("mainPage").style.display="none";
-    const lovePage = document.getElementById("lovePage");
-    lovePage.style.display="flex";
-
-    setInterval(()=>{
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML="💖";
-        heart.style.left = Math.random()*100+"vw";
-        heart.style.fontSize = Math.random()*30+15+"px";
-        body.appendChild(heart);
-        setTimeout(()=>heart.remove(),6000);
-    },300);
+    mainPage.style.display="none";
+    document.getElementById("lovePage").style.display="flex";
 });
-
-/* Background giant hearts */
-for(let i=0;i<5;i++){
-    const bg = document.createElement("div");
-    bg.classList.add("bg-heart");
-    bg.innerHTML="❤";
-    bg.style.top = Math.random()*100+"vh";
-    bg.style.left = Math.random()*100+"vw";
-    body.appendChild(bg);
-}
 </script>
 
 </body>
